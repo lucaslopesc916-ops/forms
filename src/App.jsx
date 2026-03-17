@@ -212,6 +212,21 @@ export default function App() {
         console.error('Supabase insert error:', e)
       }
 
+      // Notificar via WhatsApp
+      try {
+        const msg = `🔔 *Novo Lead!*\n\n👤 *Nome:* ${name}\n📱 *WhatsApp:* ${phone}\n📍 *Cidade:* ${city}\n📧 *Email:* ${email}\n🏢 *Empresa:* ${company}\n🏭 *Segmento:* ${segOpt.val}\n💼 *Cargo:* ${roleOpt.val}\n💰 *Faturamento:* ${revenueOpt.val}\n👥 *Colaboradores:* ${employeesOpt.val}`
+        await fetch('https://smv2-8.stevo.chat/send/text', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': '1769036519293fRvOnazfAzj4wi2q',
+          },
+          body: JSON.stringify({ number: '5534988213494', text: msg }),
+        })
+      } catch (e) {
+        console.error('WhatsApp notification error:', e)
+      }
+
       // Final
       setCompletedSteps(10)
       await botSay('Agende uma reunião e veja como aplicar IA no seu negócio com a Plataforma do Viver de IA')
