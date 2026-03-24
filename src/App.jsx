@@ -208,6 +208,7 @@ export default function App() {
           revenue: revenueOpt.val,
           employees: employeesOpt.val,
         })
+        if (window.fbq) window.fbq('track', 'Lead')
       } catch (e) {
         console.error('Supabase insert error:', e)
       }
