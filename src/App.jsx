@@ -224,6 +224,17 @@ export default function App() {
           },
           body: JSON.stringify({ number: '5534988213494', text: msg }),
         })
+        // Mensagem para o lead
+        const leadPhone = '55' + phone.replace(/\D/g, '')
+        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário para conhecer sobre I.A.\n\nPosso te explicar melhor como ajudamos outras empresas nesse mesmo segmento da sua empresa a resolver exatamente isso e tirar esse peso da operação?`
+        await fetch('https://smv2-8.stevo.chat/send/text', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': '1769036519293fRvOnazfAzj4wi2q',
+          },
+          body: JSON.stringify({ number: leadPhone, text: leadMsg }),
+        })
       } catch (e) {
         console.error('WhatsApp notification error:', e)
       }
