@@ -226,7 +226,7 @@ export default function App() {
         })
         // Mensagem para o lead
         const leadPhone = '55' + phone.replace(/\D/g, '')
-        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário para conhecer sobre I.A.\n\nPosso te explicar melhor como ajudamos outras empresas nesse mesmo segmento da sua empresa a resolver exatamente isso e tirar esse peso da operação?`
+        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário para conhecer sobre I.A\n\nPra entender como conseguimos te ajudar, hoje quais seriam suas necessidades em relação a I.A por aí?`
         await fetch('https://smv2-8.stevo.chat/send/text', {
           method: 'POST',
           headers: {
