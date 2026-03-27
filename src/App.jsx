@@ -63,6 +63,18 @@ export default function App() {
   const inputRef = useRef(null)
   const hasRun = useRef(false)
 
+  const utmRef = useRef((() => {
+    const p = new URLSearchParams(window.location.search)
+    return {
+      utm_source:   p.get('utm_source')   || null,
+      utm_medium:   p.get('utm_medium')   || null,
+      utm_campaign: p.get('utm_campaign') || null,
+      utm_term:     p.get('utm_term')     || null,
+      utm_content:  p.get('utm_content')  || null,
+      fbclid:       p.get('fbclid')       || null,
+    }
+  })())
+
   useEffect(() => {
     setTimeout(() => {
       chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -207,6 +219,7 @@ export default function App() {
           role: roleOpt.val,
           revenue: revenueOpt.val,
           employees: employeesOpt.val,
+          ...utmRef.current,
         })
         if (window.fbq) window.fbq('track', 'Lead')
       } catch (e) {
@@ -215,7 +228,28 @@ export default function App() {
 
       // Notificar via WhatsApp
       try {
-        const msg = `🔔 *Novo Lead!*\n\n👤 *Nome:* ${name}\n📱 *WhatsApp:* ${phone}\n📍 *Cidade:* ${city}\n📧 *Email:* ${email}\n🏢 *Empresa:* ${company}\n🏭 *Segmento:* ${segOpt.val}\n💼 *Cargo:* ${roleOpt.val}\n💰 *Faturamento:* ${revenueOpt.val}\n👥 *Colaboradores:* ${employeesOpt.val}`
+        const utm = utmRef.current
+        const msg = [
+          `🟢 *Novo Lead — Form Preenchido*`,
+          ``,
+          `👤 *Nome:* ${name}`,
+          `📱 *Telefone:* 55${phone.replace(/\D/g, '')}`,
+          `📍 *Cidade:* ${city}`,
+          `📧 *Email:* ${email}`,
+          `🏢 *Empresa:* ${company}`,
+          `🏭 *Segmento:* ${segOpt.val}`,
+          `💼 *Cargo:* ${roleOpt.val}`,
+          `💰 *Faturamento:* ${revenueOpt.val}`,
+          `👥 *Colaboradores:* ${employeesOpt.val}`,
+          ``,
+          `📊 *Origem do Lead*`,
+          `📣 *Fonte:* ${utm.utm_source || '—'}`,
+          `🎯 *Meio:* ${utm.utm_medium || '—'}`,
+          `📢 *Campanha:* ${utm.utm_campaign || '—'}`,
+          `🔑 *Termo:* ${utm.utm_term || '—'}`,
+          `🖼️ *Anúncio:* ${utm.utm_content || '—'}`,
+          `🔗 *Facebook Click ID:* ${utm.fbclid ? 'Sim' : '—'}`,
+        ].join('\n')
         await fetch('https://smv2-8.stevo.chat/send/text', {
           method: 'POST',
           headers: {
