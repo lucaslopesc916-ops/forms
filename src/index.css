@@ -18,15 +18,16 @@
   --pdot-pending: #d1d5db;
 }
 
-html, body, #root {
-  height: 100%;
-}
-
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
+}
+
+body.form-page,
+body.form-page #root {
+  height: 100%;
   overflow: hidden;
 }
 
@@ -377,11 +378,11 @@ body {
 /* ── Mobile ───────────────────────────────────── */
 @media (max-width: 600px) {
   .header {
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1.25rem;
   }
 
   .chat {
-    padding: 1.25rem 1rem 0.75rem;
+    padding: 1.25rem 1.25rem 0.75rem;
   }
 
   .pline {
@@ -392,7 +393,20 @@ body {
     max-width: 90%;
   }
 
+  .options-panel {
+    padding: 0.875rem 1.25rem;
+  }
+
+  .options-panel-large {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
   .input-bar {
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .calendly-card-header {
+    padding: 1rem 1.25rem;
   }
 }
