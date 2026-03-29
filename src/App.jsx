@@ -4,7 +4,7 @@ import { supabase } from './lib/supabase'
 
 const delay = ms => new Promise(r => setTimeout(r, ms))
 
-const TOTAL_STEPS = 9
+const TOTAL_STEPS = 13
 
 const SEGMENTS = [
   'Agência', 'Agronegócio', 'Alimentação e bebidas', 'Automotivo',
@@ -33,6 +33,24 @@ const EMPLOYEES = [
   '11 a 20 colaboradores', '20 a 50 colaboradores',
   '50 a 100 colaboradores', '100 a 300 colaboradores',
   'Mais de 300 colaboradores',
+]
+
+const NEEDS = [
+  'Mentoria Individual', 'Mentoria em Grupo', 'Curso Gravado', 'Consultoria Implementada',
+]
+
+const PAINS = [
+  'Processos manuais e repetitivos', 'Equipe sobrecarregada', 'Alto custo operacional',
+  'Dificuldade em escalar', 'Atendimento ao cliente ineficiente', 'Falta de tempo para estratégia',
+]
+
+const AI_EXPERIENCE = [
+  'Nunca tentei usar IA', 'Tentei mas não funcionou', 'Uso pontualmente', 'Já uso mas quero expandir',
+]
+
+const AI_AREA = [
+  'Atendimento / Vendas', 'Marketing / Conteúdo', 'Financeiro / Administrativo',
+  'RH / Recrutamento', 'Operação / Produção',
 ]
 
 function Avatar() {
@@ -207,6 +225,26 @@ export default function App() {
       await botSay('Excelente! Com essas informações, já temos dados para seu diagnóstico. Quantos colaboradores a empresa possui?')
       const employeesOpt = await waitForChoice(EMPLOYEES.map(e => ({ label: e, val: e })))
 
+      // 10 — Necessidade
+      setCompletedSteps(10)
+      await botSay('Perfeito! O que você está buscando agora?')
+      const needOpt = await waitForChoice(NEEDS.map(n => ({ label: n, val: n })))
+
+      // 11 — Maior dor
+      setCompletedSteps(11)
+      await botSay('Qual é a sua maior dor hoje no negócio?')
+      const painOpt = await waitForChoice(PAINS.map(p => ({ label: p, val: p })))
+
+      // 12 — Experiência com IA
+      setCompletedSteps(12)
+      await botSay('Já tentou usar IA no seu negócio?')
+      const aiExpOpt = await waitForChoice(AI_EXPERIENCE.map(a => ({ label: a, val: a })))
+
+      // 13 — Área para automatizar
+      setCompletedSteps(13)
+      await botSay('Qual área você quer automatizar primeiro?')
+      const aiAreaOpt = await waitForChoice(AI_AREA.map(a => ({ label: a, val: a })))
+
       // Salvar no Supabase
       try {
         await supabase.from('leads').insert({
@@ -219,6 +257,10 @@ export default function App() {
           role: roleOpt.val,
           revenue: revenueOpt.val,
           employees: employeesOpt.val,
+          need: needOpt.val,
+          pain: painOpt.val,
+          ai_experience: aiExpOpt.val,
+          ai_area: aiAreaOpt.val,
           ...utmRef.current,
         })
         if (window.fbq) window.fbq('track', 'Lead')
@@ -241,6 +283,12 @@ export default function App() {
           `💼 *Cargo:* ${roleOpt.val}`,
           `💰 *Faturamento:* ${revenueOpt.val}`,
           `👥 *Colaboradores:* ${employeesOpt.val}`,
+          ``,
+          `🎯 *Qualificação*`,
+          `💡 *Necessidade:* ${needOpt.val}`,
+          `😣 *Maior dor:* ${painOpt.val}`,
+          `🤖 *Experiência com IA:* ${aiExpOpt.val}`,
+          `⚡ *Área para automatizar:* ${aiAreaOpt.val}`,
           ``,
           `📊 *Origem do Lead*`,
           `📣 *Fonte:* ${utm.utm_source || '—'}`,
