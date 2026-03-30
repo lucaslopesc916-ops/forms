@@ -314,7 +314,7 @@ export default function App() {
           'Curso Gravado':             'um curso gravado',
           'Consultoria Implementada':  'uma consultoria implementada',
         }[needOpt.val] || needOpt.val.toLowerCase()
-        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário buscando ${needLabel} para sua empresa de ${segOpt.val}.\n\nEntendo que "${painOpt.val}" é um desafio real — e é exatamente esse tipo de problema que resolvemos com IA aqui na Viver de IA.\n\nPosso te mostrar como funciona na prática para o seu segmento?`
+        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário buscando ${needLabel} para sua empresa de ${segOpt.val}.\n\nEntendo que "${painOpt.val}" é um desafio real — e é exatamente esse tipo de problema que resolvemos com IA aqui na Winner I.A.\n\nPosso te mostrar como funciona na prática para o seu segmento?`
         await fetch('https://smv2-8.stevo.chat/send/text', {
           method: 'POST',
           headers: {
@@ -329,7 +329,7 @@ export default function App() {
 
       // Final
       setCompletedSteps(10)
-      await botSay('Agende uma reunião e veja como aplicar IA no seu negócio com a Plataforma do Viver de IA')
+      await botSay('Agende uma reunião e veja como aplicar IA no seu negócio com a Winner I.A')
       setShowCalendly(true)
     }
 
