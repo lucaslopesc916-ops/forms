@@ -308,7 +308,13 @@ export default function App() {
         })
         // Mensagem para o lead
         const leadPhone = '55' + phone.replace(/\D/g, '')
-        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário para conhecer sobre I.A\n\nPra entender como conseguimos te ajudar, hoje quais seriam suas necessidades em relação a I.A por aí?`
+        const needLabel = {
+          'Mentoria Individual':       'uma mentoria individual',
+          'Mentoria em Grupo':         'uma mentoria em grupo',
+          'Curso Gravado':             'um curso gravado',
+          'Consultoria Implementada':  'uma consultoria implementada',
+        }[needOpt.val] || needOpt.val.toLowerCase()
+        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário buscando ${needLabel} para sua empresa de ${segOpt.val}.\n\nEntendo que "${painOpt.val}" é um desafio real — e é exatamente esse tipo de problema que resolvemos com IA aqui na Viver de IA.\n\nPosso te mostrar como funciona na prática para o seu segmento?`
         await fetch('https://smv2-8.stevo.chat/send/text', {
           method: 'POST',
           headers: {
