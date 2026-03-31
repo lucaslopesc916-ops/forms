@@ -328,9 +328,8 @@ export default function App() {
       }
 
       // Final
-      setCompletedSteps(10)
-      await botSay('Agende uma reunião e veja como aplicar IA no seu negócio com a Winner I.A')
-      setShowCalendly(true)
+      setCompletedSteps(13)
+      await botSay('Obrigado! Em breve entraremos em contato com você pelo WhatsApp. 🚀')
     }
 
     if (hasRun.current) return
@@ -385,27 +384,7 @@ export default function App() {
         <div ref={chatEndRef} style={{ height: 1 }} />
       </div>
 
-      {/* Calendly panel */}
-      {showCalendly && (
-        <div className="calendly-panel">
-          <div className="calendly-card-header">
-            <div className="cal-icon">📅</div>
-            <div>
-              <strong>Agenda hoje</strong>
-              <p>Para sua reunião gratuita</p>
-            </div>
-          </div>
-          <iframe
-            src="https://calendly.com/lucaslopesc916/30min?hide_gdpr_banner=1"
-            width="100%"
-            height="600"
-            frameBorder="0"
-            title="Agendar reunião"
-          />
-        </div>
-      )}
-
-      {/* Options panel */}
+{/* Options panel */}
       {options.length > 0 && (
         <div className={`options-panel ${largeOptions ? 'options-panel-large' : ''}`}>
           {options.map(opt => (
