@@ -314,7 +314,7 @@ export default function App() {
           'Curso Gravado':             'um curso gravado',
           'Consultoria Implementada':  'uma consultoria implementada',
         }[needOpt.val] || needOpt.val.toLowerCase()
-        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário buscando ${needLabel} para sua empresa de ${segOpt.val}.\n\nEntendo que "${painOpt.val}" é um desafio real — e é exatamente esse tipo de problema que resolvemos com IA aqui na Winner I.A.\n\nPosso te mostrar como funciona na prática para o seu segmento?`
+        const leadMsg = `Olá ${name}, tudo bem? Vi que você preencheu o formulário buscando ${needLabel} para sua empresa de ${segOpt.val}.\n\nEntendo que "${painOpt.val}" é um desafio real — e é exatamente esse tipo de problema que resolvemos com IA aqui na Winner I.A.\n\nPra entender como conseguimos te ajudar, hoje quais seriam suas necessidades em relação a I.A por aí?`
         await fetch('https://smv2-8.stevo.chat/send/text', {
           method: 'POST',
           headers: {
